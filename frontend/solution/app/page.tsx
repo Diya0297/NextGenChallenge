@@ -1,3 +1,4 @@
+import PortfolioSummary from "@/components/summary/PortfolioSummary";
 import Card from "@/components/ui/Card";
 import styles from "./page.module.css";
 
@@ -9,7 +10,7 @@ export default function OverviewPage() {
 
       <div className={styles.grid}>
         <Card title="Portfolio Summary" className={styles.summary}>
-          <p className={styles.placeholder}>Task 2: summary card (Person A)</p>
+          <PortfolioSummary />
         </Card>
 
         <Card title="Portfolio Value" className={styles.valueChart}>

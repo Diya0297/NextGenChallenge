@@ -1,0 +1,31 @@
+.message {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.error .message {
+  color: var(--negative);
+}
+
+.retry {
+  padding: 6px var(--space-sm);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.retry:hover {
+  border-color: var(--accent);
+}
