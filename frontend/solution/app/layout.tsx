@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/components/layout/Header";
 import { DashboardProvider } from "@/components/providers/DashboardProvider";
+import { AccountProvider } from "@/context/AccountContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -24,8 +25,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <Suspense>
           <DashboardProvider>
-            <Header />
-            {children}
+            <AccountProvider>
+              <Header />
+              {children}
+            </AccountProvider>
           </DashboardProvider>
         </Suspense>
       </body>

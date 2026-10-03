@@ -1,0 +1,120 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 240px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-control, 8px);
+  border: 1px dashed var(--border);
+}
+
+.chartWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.gridLine {
+  stroke: var(--border);
+  stroke-dasharray: 4 4;
+}
+
+.axisText {
+  fill: var(--muted);
+  font-size: 11px;
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+.axisTextEnd {
+  text-anchor: end;
+}
+
+.axisTextMiddle {
+  text-anchor: middle;
+}
+
+.chartLine {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.singlePoint {
+  fill: var(--accent);
+  stroke: var(--surface);
+  stroke-width: 2px;
+}
+
+.crosshair {
+  stroke: rgba(255, 255, 255, 0.25);
+  stroke-dasharray: 3 3;
+  stroke-width: 1.5;
+}
+
+.hoverPointPulse {
+  fill: var(--accent);
+  opacity: 0.25;
+}
+
+.hoverPoint {
+  fill: var(--accent);
+  stroke: #ffffff;
+  stroke-width: 2px;
+}
+
+.overlayRect {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: #1c2638;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control, 8px);
+  padding: 8px 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 10;
+  transition: opacity 0.15s ease-out;
+  white-space: nowrap;
+}
+
+.tooltipDate {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.tooltipValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
