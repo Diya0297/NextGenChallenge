@@ -1,11 +1,12 @@
+import CurrencyToggle from "@/components/currency/CurrencyToggle";
 import styles from "./Header.module.css";
 
-// Slots for Task 8 (account selector, left) and Task 7 (currency toggle, right)
+// Account selector slot (left, Task 8) and currency toggle (right, Task 7)
 export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.slot}>Account selector</div>
-      <div className={styles.slot}>CAD / USD</div>
+      <CurrencyToggle />
     </header>
   );
 }

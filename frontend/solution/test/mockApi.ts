@@ -25,16 +25,24 @@ export const samplePortfolio = {
   performanceHistory: [],
 };
 
-export function stubMockApi({ failFirst = false } = {}) {
+export const sampleExchangeRate = { CADtoUSD: 0.73 };
+
+const unavailable = () =>
+  Response.json({ message: "Service unavailable" }, { status: 503 });
+
+export function stubMockApi({ failFirst = false, failRate = false } = {}) {
   let failed = false;
 
   const fetchMock = vi.fn(async (url: string) => {
     if (failFirst && !failed) {
       failed = true;
-      return Response.json({ message: "Service unavailable" }, { status: 503 });
+      return unavailable();
     }
     if (url.includes("/accounts")) return Response.json(sampleAccounts);
     if (url.includes("/portfolios/")) return Response.json(samplePortfolio);
+    if (url.includes("/exchange-rate")) {
+      return failRate ? unavailable() : Response.json(sampleExchangeRate);
+    }
     return Response.json({ message: "Not found" }, { status: 404 });
   });
 

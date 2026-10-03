@@ -3,11 +3,13 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
 import { apiUrl, pickMockOptions } from "@/lib/api";
+import { createMoney, type Money } from "@/lib/currency";
 import { useApi, type ApiState } from "@/lib/useApi";
 import type {
   Account,
   Currency,
   DateRange,
+  ExchangeRate,
   PortfolioResponse,
 } from "@/lib/types";
 
@@ -17,8 +19,12 @@ type DashboardState = {
   accountId: string | null;
   setAccountId: (accountId: string) => void;
   portfolio: ApiState<PortfolioResponse>;
+  /** The currency figures are shown in. Stays CAD until the exchange rate has loaded. */
   currency: Currency;
   setCurrency: (currency: Currency) => void;
+  exchangeRate: ApiState<ExchangeRate>;
+  /** Convert and format every CAD amount through this, so the currency toggle works everywhere */
+  money: Money;
   dateRange: DateRange;
   setDateRange: (range: DateRange) => void;
   /** Mock API options from the page URL; add to your own apiUrl() calls */
@@ -45,7 +51,15 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   // If the accounts list failed, the portfolio can't load either, so show that error.
   const portfolio = accounts.status === "error" ? accounts : portfolioState;
 
-  const [currency, setCurrency] = useState<Currency>("CAD");
+  // Loaded once; switching currency never refetches data.
+  const exchangeRate = useApi<ExchangeRate>(apiUrl("/exchange-rate", mockOptions));
+  const [chosenCurrency, setCurrency] = useState<Currency>("CAD");
+  const currency = exchangeRate.status === "success" ? chosenCurrency : "CAD";
+  const money = createMoney(
+    currency,
+    exchangeRate.status === "success" ? exchangeRate.data.CADtoUSD : 1,
+  );
+
   const [dateRange, setDateRange] = useState<DateRange>("1Y");
 
   return (
@@ -57,6 +71,8 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
         portfolio,
         currency,
         setCurrency,
+        exchangeRate,
+        money,
         dateRange,
         setDateRange,
         mockOptions,

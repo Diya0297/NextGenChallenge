@@ -27,20 +27,19 @@
 "use client";
 import { useDashboard } from "@/components/providers/DashboardProvider";
 import StatusMessage from "@/components/ui/StatusMessage";
-import { formatMoney } from "@/lib/format";
 
 export default function HoldingsTable() {
-  const { portfolio, currency } = useDashboard();
+  const { portfolio, money } = useDashboard();
   if (portfolio.status !== "success") return <StatusMessage state={portfolio} />;
 
   const holdings = portfolio.data.holdings;
-  // ... use formatMoney(holding.marketValue, currency) for every dollar value
+  // ... use money.format(holding.marketValue) for every dollar value
 }
 ```
 
 - **Holdings, chart history and allocation are already loaded**: `portfolio.data.holdings`, `.performanceHistory`, `.allocation`. No need to fetch them again.
 - **Person C:** `accounts`, `accountId`, `setAccountId`, `dateRange` and `setDateRange` are ready for Tasks 6 and 8.
-- **Always use `formatMoney` for dollar values**, so the CAD/USD toggle (Task 7) works everywhere.
+- **Always use `money.format` / `money.formatSigned` / `money.convert` for dollar values**, so the CAD/USD toggle works everywhere. See `task-7-currency-toggle.md`.
 
 ### The percentage trap
 

@@ -31,7 +31,7 @@ export default function SummaryCard({ summary, currency }: SummaryCardProps) {
         <p className={styles.total}>
           {formatMoney(summary.totalMarketValue, currency)}
         </p>
-        <p className={styles.label}>Total Market Value</p>
+        <p className={styles.label}>Total Market Value · {currency}</p>
       </div>
 
       <div>
