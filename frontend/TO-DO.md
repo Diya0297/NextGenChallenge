@@ -21,10 +21,10 @@ Reference: `frontend/REQUIREMENTS.md` has Goal / Inputs / Expected Behaviour / E
 - [ ] Task 10: Top Movers widget
 
 ## Person C — Charts, Date range, Account selector
-- [ ] Task 4: Portfolio Value Line Chart
-- [ ] Task 5: Asset Allocation Chart
-- [ ] Task 6: Date-range selector (filters own line chart)
-- [ ] Task 8: Account/portfolio selector (stretch — touches shared state, do last)
+- [x] Task 4: Portfolio Value Line Chart
+- [x] Task 5: Asset Allocation Chart
+- [x] Task 6: Date-range selector (filters own line chart)
+- [x] Task 8: Account/portfolio selector (stretch — touches shared state, do last)
 
 ## Testing
 - Unit tests (Vitest or equivalent) on the logic most likely to have bugs: sort comparator, currency conversion math, empty-state rendering.

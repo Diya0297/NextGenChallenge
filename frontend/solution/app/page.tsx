@@ -1,4 +1,6 @@
 import Card from "@/components/ui/Card";
+import PortfolioValueSection from "@/components/charts/PortfolioValueSection";
+import AssetAllocationSection from "@/components/charts/AssetAllocationSection";
 import styles from "./page.module.css";
 
 // Each card is a slot. Replace its placeholder with the real component.
@@ -13,13 +15,11 @@ export default function OverviewPage() {
         </Card>
 
         <Card title="Portfolio Value" className={styles.valueChart}>
-          <p className={styles.placeholder}>
-            Tasks 4 &amp; 6: value chart and date range (Person C)
-          </p>
+          <PortfolioValueSection />
         </Card>
 
         <Card title="Asset Allocation" className={styles.allocation}>
-          <p className={styles.placeholder}>Task 5: allocation chart (Person C)</p>
+          <AssetAllocationSection />
         </Card>
 
         <Card title="Top Movers" className={styles.movers}>
