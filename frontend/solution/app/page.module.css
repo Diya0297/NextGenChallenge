@@ -1,0 +1,60 @@
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-xl);
+}
+
+.heading {
+  margin-bottom: var(--space-lg);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Layout follows frontend/UI resoruces/design/dashboard-mockup.jpg */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "summary summary  summary"
+    "chart   chart    allocation"
+    "movers  holdings holdings";
+  gap: var(--space-lg);
+}
+
+.summary {
+  grid-area: summary;
+}
+
+.valueChart {
+  grid-area: chart;
+}
+
+.allocation {
+  grid-area: allocation;
+}
+
+.movers {
+  grid-area: movers;
+}
+
+.holdings {
+  grid-area: holdings;
+}
+
+.placeholder {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Stack everything on narrow screens */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "summary"
+      "chart"
+      "allocation"
+      "movers"
+      "holdings";
+  }
+}

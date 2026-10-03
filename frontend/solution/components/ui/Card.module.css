@@ -1,0 +1,18 @@
+.card {
+  padding: var(--space-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.2s ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.title {
+  margin-bottom: var(--space-md);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text);
+}
