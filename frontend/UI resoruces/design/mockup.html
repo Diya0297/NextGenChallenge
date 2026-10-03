@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wealth Dashboard — Design Mockup (Electric Mind theme)</title>
+<style>
+  :root {
+    --background: #F5F5F3;
+    --surface: #FFFFFF;
+    --surface-muted: #ECECEA;
+    --primary: #3B4CF5;
+    --primary-dark: #2733C7;
+    --primary-subtle: #E8EAFD;
+    --positive: #0A8F5A;
+    --positive-subtle: #E6F4ED;
+    --negative: #E2443A;
+    --negative-subtle: #FCEAE9;
+    --neutral: #6F746F;
+    --text-primary: #0E0F10;
+    --text-secondary: #5B5F5B;
+    --text-muted: #9A9E9A;
+    --border: rgba(0,0,0,0.08);
+    --radius-card: 12px;
+    --radius-control: 8px;
+    --radius-pill: 999px;
+    --mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
+    --sans: "Inter", "SF Pro", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text-primary);
+    font-family: var(--sans);
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+  }
+  .logo {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+  }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .account-select, .currency-toggle {
+    font-family: var(--mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    background: var(--surface-muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+    padding: 8px 14px;
+    color: var(--text-secondary);
+  }
+  .currency-toggle { display: flex; gap: 2px; padding: 2px; }
+  .currency-toggle span { padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+  .currency-toggle span.active { background: var(--primary); color: white; }
+  main { padding: 32px; max-width: 1280px; margin: 0 auto; }
+  h1 {
+    font-family: var(--mono);
+    font-size: 34px;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin: 0 0 24px 0;
+  }
+  .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card-title {
+    font-family: var(--mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+  .card-subtitle { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+  .hero-metric {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 40px;
+    background: var(--surface-muted);
+    display: inline-block;
+    padding: 2px 10px;
+    margin-bottom: 12px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+  }
+  .badge.positive { background: var(--positive-subtle); color: var(--positive); }
+  .badge.negative { background: var(--negative-subtle); color: var(--negative); }
+  .summary-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
+  .summary-sub { font-size: 13px; color: var(--text-secondary); }
+
+  .movers-cols { display: flex; gap: 24px; }
+  .movers-col { flex: 1; }
+  .mover-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .mover-row:last-child { border-bottom: none; }
+  .ticker { font-family: var(--mono); font-weight: 600; }
+
+  .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .range-pills { display: flex; gap: 4px; background: var(--surface-muted); border-radius: var(--radius-control); padding: 2px; }
+  .range-pills span { font-family: var(--mono); font-size: 11px; padding: 6px 10px; border-radius: 6px; color: var(--text-secondary); cursor: pointer; }
+  .range-pills span.active { background: var(--primary); color: white; }
+  .line-chart { height: 140px; display: flex; align-items: flex-end; gap: 4px; }
+  .line-chart svg { width: 100%; height: 100%; }
+
+  .donut-wrap { display: flex; align-items: center; gap: 24px; }
+  .donut {
+    width: 120px; height: 120px; border-radius: 50%;
+    background: conic-gradient(var(--primary) 0% 60%, #8E9AF8 60% 85%, var(--surface-muted) 85% 95%, var(--text-muted) 95% 100%);
+    flex-shrink: 0;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; margin-bottom: 6px; color: var(--text-secondary); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; color: var(--text-muted); padding: 8px 12px; border-bottom: 1px solid var(--border); cursor: pointer; }
+  td { padding: 12px; border-bottom: 1px solid var(--border); }
+  td.num, th.num { text-align: right; }
+  .pos { color: var(--positive); font-weight: 600; }
+  .neg { color: var(--negative); font-weight: 600; }
+
+  .btn-primary {
+    font-family: var(--mono);
+    text-transform: uppercase;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-control);
+    padding: 10px 20px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">PORTFOLIO<span style="color:var(--primary)">.</span></div>
+  <div class="nav-right">
+    <div class="account-select">Taxable Brokerage — P-9001 ▾</div>
+    <div class="currency-toggle"><span class="active">CAD</span><span>USD</span></div>
+  </div>
+</header>
+
+<main>
+  <h1>Portfolio Overview</h1>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">Total Market Value</div>
+      <div class="hero-metric">$482,350.12</div>
+      <div class="summary-row">
+        <span class="badge positive">▲ $1,520.44 (+0.32%)</span>
+        <span class="summary-sub">Return since inception: <strong class="pos">+18.7%</strong></span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Top Movers</div>
+      <div class="card-subtitle">Today's biggest changes</div>
+      <div class="movers-cols">
+        <div class="movers-col">
+          <div class="mover-row"><span class="ticker">AAPL</span><span class="pos">+2.4%</span></div>
+          <div class="mover-row"><span class="ticker">MSFT</span><span class="pos">+1.1%</span></div>
+        </div>
+        <div class="movers-col">
+          <div class="mover-row"><span class="ticker">TSLA</span><span class="neg">-4.1%</span></div>
+          <div class="mover-row"><span class="ticker">BND</span><span class="neg">-0.6%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="chart-header">
+        <div>
+          <div class="card-title">Portfolio Value</div>
+          <div class="card-subtitle">Jan 2025 — present</div>
+        </div>
+        <div class="range-pills">
+          <span>1D</span><span>1M</span><span class="active">YTD</span><span>1Y</span><span>All</span>
+        </div>
+      </div>
+      <div class="line-chart">
+        <svg viewBox="0 0 300 100" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3B4CF5" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#3B4CF5" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <polyline fill="none" stroke="#3B4CF5" stroke-width="2"
+            points="0,70 40,60 80,65 120,45 160,50 200,30 240,35 300,15" />
+          <polygon fill="url(#fill)"
+            points="0,70 40,60 80,65 120,45 160,50 200,30 240,35 300,15 300,100 0,100" />
+        </svg>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Asset Allocation</div>
+      <div class="card-subtitle">By asset class</div>
+      <div class="donut-wrap">
+        <div class="donut"></div>
+        <div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--primary)"></span>Equity — 60%</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#8E9AF8"></span>Fixed Income — 25%</div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--surface-muted);border:1px solid var(--border)"></span>Cash — 10%</div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--text-muted)"></span>Alternatives — 5%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Holdings</div>
+    <div class="card-subtitle">Click a row to view detail</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Ticker</th><th>Name</th>
+          <th class="num">Qty</th><th class="num">Price</th>
+          <th class="num">Market Value</th><th class="num">Weight %</th><th class="num">Gain/Loss</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ticker">AAPL</td><td>Apple Inc.</td>
+          <td class="num">120</td><td class="num">$227.50</td>
+          <td class="num">$27,300.00</td><td class="num">5.66%</td><td class="num pos">+$3,200.00</td>
+        </tr>
+        <tr>
+          <td class="ticker">BND</td><td>Vanguard Total Bond ETF</td>
+          <td class="num">300</td><td class="num">$72.10</td>
+          <td class="num">$21,630.00</td><td class="num">4.48%</td><td class="num neg">-$410.50</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+</body>
+</html>
