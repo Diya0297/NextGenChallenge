@@ -9,6 +9,8 @@ import {
   type ReactNode,
 } from "react";
 
+import { useSearchParams } from "next/navigation";
+
 export interface AccountOption {
   accountId: string;
   label: string;
@@ -49,6 +51,9 @@ export function AccountProvider({
   initialAccounts,
   initialSelectedId,
 }: AccountProviderProps) {
+  const searchParams = useSearchParams();
+  const urlAccountId = searchParams?.get("accountId") ?? null;
+
   const [fetchedAccounts, setFetchedAccounts] = useState<AccountOption[] | null>(null);
   const [isLoading, setIsLoading] = useState(!initialAccounts);
 
@@ -57,14 +62,11 @@ export function AccountProvider({
     [initialAccounts, fetchedAccounts]
   );
 
-  const [selectedAccountId, setSelectedAccountId] = useState<string>(() => {
-    if (initialSelectedId) return initialSelectedId;
-    if (typeof window !== "undefined") {
-      const paramId = new URLSearchParams(window.location.search).get("accountId");
-      if (paramId) return paramId;
-    }
-    return initialAccounts?.[0]?.accountId ?? DEFAULT_ACCOUNTS[0].accountId;
-  });
+  const [chosenAccountId, setChosenAccountId] = useState<string | null>(
+    initialSelectedId ?? urlAccountId
+  );
+
+  const selectedAccountId = chosenAccountId ?? accounts[0]?.accountId ?? DEFAULT_ACCOUNTS[0].accountId;
 
   // Derive valid account ID without cascading setState
   const effectiveAccountId = useMemo(() => {
@@ -122,7 +124,7 @@ export function AccountProvider({
   }, [initialAccounts]);
 
   const selectAccount = (id: string) => {
-    setSelectedAccountId(id);
+    setChosenAccountId(id);
     if (typeof window !== "undefined") {
       const url = new URL(window.location.href);
       url.searchParams.set("accountId", id);
