@@ -66,18 +66,13 @@ On screens narrower than 900px, the cards stack into one column.
 
 ## How to run and test
 
-```sh
-cd frontend/solution
-npm install
-npm run dev     # open http://localhost:3000
-npm test        # runs the Vitest tests
-```
+See `frontend/solution/README.md` for full setup. In short: start the mock API with `node frontend/mock-server.mjs` from the repo root, then `npm install`, `npm run dev` and `npm test` in `frontend/solution`.
 
-**Tests (7, all passing):**
+**Shell tests:**
 
 - `components/ui/Card.test.tsx`: shows its title, shows its contents, keeps its grid class.
-- `components/layout/Header.test.tsx`: renders as the page banner, with both control slots.
-- `app/page.test.tsx`: shows the "Portfolio Overview" heading and all five card slots.
+- `components/layout/Header.test.tsx`: renders as the page banner, with the account slot and the currency toggle.
+- `app/page.test.tsx`: shows the "Portfolio Overview" heading, all five card slots, and live summary data.
 
 ## Decisions and assumptions
 
@@ -86,8 +81,8 @@ npm test        # runs the Vitest tests
 - **A "Portfolio Overview" heading was kept**, even though the mockup has none, because the brief asks for it.
 - **Profile and bell icons from the mockup were left out**, because they aren't in the requirements.
 
-## Next (Person A)
+## Follow-up work (done)
 
-- Shared data-fetching helper for `http://localhost:4000`, with loading and error states.
-- Task 2: Portfolio Summary card.
-- Task 7: CAD ↔ USD toggle, plus a shared money formatter that everyone uses.
+- Shared data layer and Task 2 summary card: see `task-2-summary-and-data.md`.
+- Task 7 currency toggle: see `task-7-currency-toggle.md`.
+- All decisions in one place: see `decisions.md`.

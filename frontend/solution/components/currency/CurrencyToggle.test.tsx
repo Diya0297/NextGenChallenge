@@ -65,15 +65,27 @@ describe("CurrencyToggle", () => {
     expect(fetchMock.mock.calls.length).toBe(requestsBefore);
   });
 
+  it("shows the current exchange rate", async () => {
+    stubMockApi();
+    renderDashboard();
+
+    expect(screen.getByTestId("exchange-rate").textContent).toBe("Loading rate…");
+    await waitFor(() =>
+      expect(screen.getByTestId("exchange-rate").textContent).toBe(
+        "1 CAD = 0.73 USD",
+      ),
+    );
+  });
+
   it("keeps USD unavailable if the exchange rate can't load", async () => {
     stubMockApi({ failRate: true });
     renderDashboard();
     await screen.findByText("$65,680.00");
 
     await waitFor(() =>
-      expect(
-        screen.getByRole("group").getAttribute("title"),
-      ).toBe("Exchange rate unavailable: showing CAD"),
+      expect(screen.getByTestId("exchange-rate").textContent).toBe(
+        "Rate unavailable",
+      ),
     );
     expect(button("USD").hasAttribute("disabled")).toBe(true);
   });

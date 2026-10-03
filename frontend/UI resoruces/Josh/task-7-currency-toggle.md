@@ -3,7 +3,7 @@
 ## What it does
 
 - A **CAD | USD switch** in the top-right of the header. The selected side is highlighted.
-- Hovering the switch shows the rate: `1 CAD = 0.73 USD` (loaded once from `/exchange-rate`).
+- The **current rate is always shown** next to the switch: `1 CAD = 0.73 USD` (loaded once from `/exchange-rate`). It says "Loading rate…" while waiting and "Rate unavailable" if the request fails. Added after our teacher's feedback.
 - Switching converts dollar figures instantly: **no page reload and no new data requests**.
 - **Percentages never change** (day change %, total return, weight %).
 - The currency is always clear: CAD shows `$65,680.00`, USD shows `US$47,946.40`, and the summary label says `Total Market Value · USD`.
@@ -40,13 +40,13 @@ money.convert(point.marketValue)       // a number, for chart axes and tooltips
 1. Open `http://localhost:3000`. The summary shows `$65,680.00` and `+$397.25 (+0.61%)`.
 2. Click **USD**. It changes to `US$47,946.40` and `+US$289.99 (+0.61%)`. The % values stay the same.
 3. Click **CAD**. It goes back to the original numbers.
-4. Hover the switch to see `1 CAD = 0.73 USD`.
+4. Next to the switch you should see `1 CAD = 0.73 USD`. Try `http://localhost:3000/?fail=true`: it should say "Rate unavailable" and USD should be greyed out.
 5. Once B and C have built their cards, click USD and check that **every** dollar value on the page changed, and that the sort order, date range and account stayed the same.
 
 ## Tests
 
 - `lib/currency.test.ts`: CAD unchanged, USD × rate, labels, and converted parts adding up to the converted total.
-- `components/currency/CurrencyToggle.test.tsx`: starts on CAD; USD converts money but not percentages; switching back makes no new requests; USD is disabled if the rate fails.
+- `components/currency/CurrencyToggle.test.tsx`: starts on CAD; USD converts money but not percentages; switching back makes no new requests; shows the current rate; shows "Rate unavailable" and disables USD if the rate fails.
 - `components/layout/Header.test.tsx`: the toggle is in the header.
 
 ## Still to verify (once B and C are merged)

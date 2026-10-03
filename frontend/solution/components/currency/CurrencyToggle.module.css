@@ -1,3 +1,18 @@
+/* Rate sits beside the switch; on narrow screens it moves underneath. */
+.wrapper {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-xs) var(--space-sm);
+}
+
+.rate {
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
 /* Two-part switch, styled like the CAD / USD control in dashboard-mockup.jpg */
 .toggle {
   display: inline-flex;

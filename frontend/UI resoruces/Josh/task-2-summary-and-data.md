@@ -74,7 +74,7 @@ npm run dev     # http://localhost:3000
 npm test
 ```
 
-## Tests (29 in total, all passing)
+## Tests
 
 - `lib/format.test.ts`: money, signs, both percent units, zero = neutral, large values.
 - `lib/api.test.ts`: URL building, API error messages, "mock server not running" message.
